@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { gapi } from 'gapi-script';
 
 const Login = () => {
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-        scope: 'email',
-      });
-    }
-
-    gapi.load('client:auth2', start);
-  }, []);
+    useEffect(() => {
+        function start() {
+          gapi.client.init({
+            clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+            scope: 'email',
+          }).then(() => {
+            console.log('Google API client initialized successfully.');
+          }).catch((error) => {
+            console.error('Error initializing Google API client:', error);
+          });
+        }
+      
+        gapi.load('client:auth2', start);
+      }, []);
 
   const responseGoogle = (response) => {
     console.log(response);
