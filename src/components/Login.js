@@ -1,27 +1,12 @@
-import React, { useEffect } from 'react';
-import { gapi } from 'gapi-script';
+// src/components/Login.js
+
+import React from 'react';
+import { GitHubLogin } from 'react-google-login'; // Assuming you're using a library that supports GitHub OAuth
 
 const Login = () => {
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-        scope: 'email',
-      }).then(() => {
-        console.log('Google API client initialized successfully.');
-        // Once the client is initialized successfully, call startSignIn
-        startSignIn();
-      }).catch((error) => {
-        console.error('Error initializing Google API client:', error);
-      });
-    }
-
-    gapi.load('client:auth2', start);
-  }, []);
-
-  const responseGoogle = (response) => {
+  const responseGitHub = (response) => {
     console.log(response);
-    // Handle successful sign-in here
+    // Handle successful sign-in with GitHub here
   };
 
   const onFailure = (error) => {
@@ -29,18 +14,16 @@ const Login = () => {
     // Handle sign-in failure here
   };
 
-  const startSignIn = () => {
-    const authInstance = gapi.auth2.getAuthInstance();
-    if (authInstance) {
-      authInstance.signIn().then(responseGoogle).catch(onFailure);
-    } else {
-      console.error('Google API client not initialized.');
-    }
-  };
-
   return (
     <div>
-      <button onClick={startSignIn}>Sign In with Google</button>
+      <GitHubLogin
+        clientId={process.env.REACT_APP_GITHUB_CLIENT_ID} // Use your GitHub OAuth client ID
+        buttonText="Sign In with GitHub"
+        onSuccess={responseGitHub}
+        onFailure={onFailure}
+        redirectUri="https://your-redirect-uri" // Optional: specify your redirect URI
+        scope="user:email" // Add required scopes here, such as accessing user email
+      />
     </div>
   );
 };
