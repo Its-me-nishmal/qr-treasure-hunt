@@ -8,7 +8,7 @@ const Login = () => {
         scope: 'email',
       }).then(() => {
         console.log('Google API client initialized successfully.');
-        // Once the client is initialized, call startSignIn
+        // Once the client is initialized successfully, call startSignIn
         startSignIn();
       }).catch((error) => {
         console.error('Error initializing Google API client:', error);
@@ -31,7 +31,7 @@ const Login = () => {
   const startSignIn = () => {
     const authInstance = gapi.auth2.getAuthInstance();
     if (authInstance) {
-      authInstance.signIn();
+      authInstance.signIn().then(responseGoogle).catch(onFailure);
     } else {
       console.error('Google API client not initialized.');
     }
