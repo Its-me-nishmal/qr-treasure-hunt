@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { gapi } from 'gapi-script';
 
 const Login = () => {
   useEffect(() => {
