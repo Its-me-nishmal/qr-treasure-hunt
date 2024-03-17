@@ -24,8 +24,14 @@ const Login = () => {
   };
 
   const startSignIn = () => {
-    gapi.auth2.getAuthInstance().signIn();
+    const authInstance = gapi.auth2.getAuthInstance();
+    if (authInstance) {
+      authInstance.signIn();
+    } else {
+      console.error('Google API client not initialized.');
+    }
   };
+  
 
   return (
     <div>
