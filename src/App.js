@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+
+import React from 'react';
+import { makeStyles } from '@mui/styles';
+import Login from './components/Login';
+
+// Define styles for the App component
+const useStyles = makeStyles((theme) => ({
+  app: {
+    textAlign: 'center',
+    backgroundColor: theme.palette.background.default,
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    marginBottom: theme.spacing(4),
+  },
+}));
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={classes.app}>
+      <header className={classes.header}>
+        <h1>Welcome to the QR Code Treasure Hunt!</h1>
+        <p>Are you ready to embark on an adventure?</p>
       </header>
+      <Login />
+      {/* Other components and content */}
     </div>
   );
 }
