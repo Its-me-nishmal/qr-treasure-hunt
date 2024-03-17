@@ -2,18 +2,14 @@
 
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles'; // Import styled from @mui/material/styles
 
-// Define styles for the Login component
-const useStyles = makeStyles((theme) => ({
-  loginButton: {
-    margin: theme.spacing(2),
-  },
-}));
+// Define styled components for the Login component
+const LoginButton = styled('div')({
+  margin: theme => theme.spacing(2),
+});
 
 const Login = () => {
-  const classes = useStyles();
-
   const responseGoogle = (response) => {
     console.log(response);
     // Handle successful sign-in here
@@ -25,16 +21,15 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <LoginButton>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign In with Google"
         onSuccess={responseGoogle}
         onFailure={onFailure}
         cookiePolicy={'single_host_origin'}
-        className={classes.loginButton} // Apply the custom style to the button
       />
-    </div>
+    </LoginButton>
   );
 };
 
